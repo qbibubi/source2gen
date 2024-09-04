@@ -204,7 +204,7 @@ namespace codegen {
             _tabs_count = 0;
 
             const auto getter = std::format(
-                R"(*reinterpret_cast<{}*>(interfaces::g_schema->FindTypeScopeForModule("{}")->FindDeclaredClass("{}")->GetStaticFields()[{}]->m_pInstance))",
+                R"(*reinterpret_cast<{}*>(Interfaces::g_pSchemaSystem->FindTypeScopeForModule(Xor("{}"))->FindDeclaredClass(Xor("{}"))->GetStaticFields()[{}].m_pInstance))",
                 type_name, mod_name, decl_class, index);
             return_value(getter, false);
             end_function(false, true);

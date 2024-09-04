@@ -24,7 +24,14 @@ namespace field_parser {
                 {"uint8"sv, "uint8_t"sv}, 
                 {"uint16"sv, "uint16_t"sv}, 
                 {"uint32"sv, "uint32_t"sv}, 
-                {"uint64"sv, "uint64_t"sv}
+                {"uint64"sv, "uint64_t"sv},
+
+                {"Vector2D"sv, "Vector2<float>"sv},
+                {"Vector"sv, "Vector3<float>"sv},
+                {"Vector4D"sv, "Vector4<float>"sv},
+                                                         
+                {"matrix3x4_t"sv, "Matrix<float, 3 ,4>"sv},
+                {"matrix3x4a_t"sv, "Matrix<float, 3 ,4>"sv},
             });
 
             constexpr auto kDatamapToCpp = std::to_array<std::pair<fieldtype_t, std::string_view>>({

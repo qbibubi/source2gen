@@ -821,7 +821,7 @@ namespace {
     }
 
     void GenerateEnumSdk(std::string_view module_name, const CSchemaEnumBinding& enum_) {
-        const std::string out_file_path = util::EscapePath(std::format("{}/{}/{}.hpp", kOutDirName, module_name, enum_.m_pszName));
+        const std::string out_file_path = util::EscapePath(std::format("{}/{}/{}.h", kOutDirName, module_name, enum_.m_pszName));
 
         // @note: @es3n1n: init codegen
         //
@@ -839,7 +839,7 @@ namespace {
             .comment("/////////////////////////////////////////////////////////////")
             .next_line();
 
-        builder.begin_namespace(std::format("source2sdk::{}", module_name));
+        builder.begin_namespace(std::format("cs2sdk::{}", module_name));
 
         // @note: @es3n1n: assemble props
         //
@@ -862,7 +862,7 @@ namespace {
     }
 
     void GenerateClassSdk(std::string_view module_name, const CSchemaClassBinding& class_) {
-        const std::filesystem::path out_file_path = util::EscapePath(std::format("{}/{}/{}.hpp", kOutDirName, module_name, class_.m_pszName));
+        const std::filesystem::path out_file_path = util::EscapePath(std::format("{}/{}/{}.h", kOutDirName, module_name, class_.m_pszName));
 
         // @note: @es3n1n: init codegen
         //
@@ -872,13 +872,13 @@ namespace {
         const auto names = GetRequiredNamesForClass(class_);
 
         for (const auto& include : names | std::views::filter([](const auto& el) { return el.source == NameSource::include; })) {
-            builder.include(std::format("\"{}/{}.hpp\"", include.module, util::EscapePath(include.type_name)));
+            builder.include(std::format("\"{}/{}.h\"", include.module, util::EscapePath(include.type_name)));
         }
 
         builder.include("<cstdint>");
 
         for (const auto& forward_declaration : names | std::views::filter([](const auto& el) { return el.source == NameSource::forward_declaration; })) {
-            builder.begin_namespace(std::format("source2sdk::{}", forward_declaration.module));
+            builder.begin_namespace(std::format("cs2sdk::{}", forward_declaration.module));
             builder.forward_declaration(forward_declaration.type_name);
             builder.end_namespace();
         }
@@ -892,7 +892,7 @@ namespace {
             .comment("/////////////////////////////////////////////////////////////")
             .next_line();
 
-        builder.begin_namespace(std::format("source2sdk::{}", module_name));
+        builder.begin_namespace(std::format("cs2sdk::{}", module_name));
 
         // @note: @es3n1n: assemble props
         //
